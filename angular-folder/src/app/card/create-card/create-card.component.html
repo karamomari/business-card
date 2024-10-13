@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+<div class="backgr">
+
+    <div class="card container col-5 mt-4">
+        <div class="card-header">
+          Create Card
+        </div>
+        <div class="card-body">
+    
+              <form (ngSubmit)="onSubmit()" #form="ngForm" class="needs-validation" novalidate>
+
+                <div class="mb-3">
+                  <label for="fname" class="form-label">First Name:</label>
+                  <input type="text" id="fname" name="fname" class="form-control" [(ngModel)]="businessCard.Fname" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="lname" class="form-label">Last Name:</label>
+                  <input type="text" id="lname" name="lname" class="form-control" [(ngModel)]="businessCard.Lname" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email:</label>
+                  <input type="email" id="email" name="email" class="form-control" [(ngModel)]="businessCard.Email" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Phone:</label>
+                  <input type="tel" id="phone" name="phone" class="form-control" [(ngModel)]="businessCard.Phone" required>
+                </div>
+                    
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone tow:</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" [(ngModel)]="businessCard.Phone2" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="gender" class="form-label">Gender:</label>
+                    <select id="gender" name="gender" class="form-control" [(ngModel)]="businessCard.Gender" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="image" class="form-label">Upload Image:</label>
+                  <input type="file" id="image" (change)="onImageSelected($event)" class="form-control" accept="image/*" required>
+              </div>
+    
+                <div class="mb-3">
+                  <a routerLink="/Import" class="form-control">Upload XML/CSV/QR</a>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Add Business Card</button>
+              </form>
+            
+        </div>
+      </div>
+    
+      
+    
+    
+ <div class="card container col-3 mt-4" id="Preview" *ngIf="preview">
+    <div class="card-header text-center bg-gradient">
+        <h4 class="text-black">Business Card</h4>
+    </div>
+    <div class="card-body d-flex align-items-center p-4" style="border-radius: 15px; background-color: #f9f9f9;">
+        <div class="me-3">
+            <img [src]="getImageUrl()" class="img-thumbnail rounded-circle border border-3 border-primary" alt="Business Card Image" style="width: 100px; height: 100px;">
+        </div>
+        
+        <div>
+            <h5 class="card-title">{{ businessCard.Fname }} {{ businessCard.Lname }}</h5>
+            <p class="card-text"><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> {{ businessCard.Email }}</p>
+            <p class="card-text"><i class="bi bi-telephone-fill"></i> <strong>Phone:</strong> {{ businessCard.Phone }}</p>
+            <p class="card-text"><i class="bi bi-telephone-fill"></i> <strong>Phone 2:</strong> {{ businessCard.Phone2 }}</p>
+            <p class="card-text"><i class="bi bi-telephone-fill"></i> <strong>GEnder :</strong> {{ businessCard.Gender }}</p>
+
+            <button type="submit" class="btn btn-primary mt-2" style="border-radius: 20px;" (click)="create()">Add Card</button>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <small class="text-muted">Thank you for choosing our services!</small>
+    </div>
+</div>
+</div>

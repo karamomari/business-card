@@ -1,0 +1,20 @@
+create database task1
+CREATE TABLE BusinessCards 
+(
+  Id int identity(1,1),
+  Photo  varchar,
+  Fname VARCHAR ,
+  Lname VARCHAR ,
+  Email VARCHAR(200) NOT NULL,
+  Date DATE ,
+  Gender CHAR(1) ,
+  PRIMARY KEY (Id)
+);
+
+CREATE TABLE Card_Phone
+(
+  Phone varchar(10) NOT NULL,
+  id_card int NOT NULL,
+  PRIMARY KEY (Phone, id_card),
+  FOREIGN KEY (id_card) REFERENCES BusinessCards(id)
+);

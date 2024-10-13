@@ -1,0 +1,228 @@
+<app-navbar></app-navbar>
+
+
+
+
+<div *ngIf="businessCards.length < 1" class="d-flex justify-content-center align-items-center vh-100">
+  <div class="spinner-grow text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+
+
+
+
+
+<div *ngIf="businessCards.length  > 1">
+
+<div class="d-flex flex-column align-items-center mt-4" >
+
+
+    <h4>Filter Options</h4>
+    <div class="mb-3 w-50"> 
+        <label for="gender" class="form-label">Choose a Filter:</label>
+        <select id="gender" name="gender" class="form-control" [(ngModel)]="selectedFilter" (change)="onFilterChange()">
+            <option value="" disabled selected>Select your filter</option>
+            <option value="email">Email</option>
+            <option value="name">Name</option>
+            <option value="phone">Phone</option>
+
+        </select>
+    </div>
+
+
+    <div *ngIf="Filtername" class="d-flex flex-row align-items-center mb-3">
+        <div class="me-3">
+            <label for="fname" class="form-label">First Name:</label>
+            <input type="text" id="fname" [(ngModel)]="name.fname" class="form-control" (keyup)="onInputChange()" required>
+        </div>
+        <div>
+            <label for="lname" class="form-label">Last Name:</label>
+            <input type="text" id="lname" [(ngModel)]="name.lname"  class="form-control" (keyup)="onInputChange()" required>
+        </div>
+    </div>
+
+
+
+
+    <div *ngIf="Filteremail" class="d-flex flex-row align-items-center mb-3">
+        <div class="me-3">
+            <label for="fname" class="form-label">Email:</label>
+            <input type="text" id="fname" [(ngModel)]="email" class="form-control" (keyup)="onInputChangeEmail()" required>
+        </div>
+    </div>
+
+
+
+    
+    <div *ngIf="Filterphone" class="d-flex flex-row align-items-center mb-3">
+      <div class="me-3">
+          <label for="phone" class="form-label">Phone:</label>
+          <input type="text" id="fname" [(ngModel)]="phone" class="form-control" (keyup)="onInputChangePhone()" required>
+      </div>
+     </div>
+
+
+
+    <div *ngIf="searchCard">
+
+        <div class="container mt-4">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Date </th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let card of searchCards">
+                    <td>{{ card.fname }} {{ card.lname }}</td>
+                    <td>{{ card.email }}</td>
+                    <td>
+                      <span *ngFor="let phone of card.cardPhones.$values">{{ phone.phone }} 
+                          <br>
+                      </span>
+                    </td> 
+                    <td>{{ card.date | date: 'dd/MM/yyyy' }}</td>
+                    <td>
+                      <button class="btn btn-danger" (click)="delete(card.id)">Delete</button>
+                    </td>
+                  </tr>
+                  
+              </tbody>
+            </table>
+          </div>
+    </div>
+
+
+
+
+    <div *ngIf="searchEmailCard">
+        <div class="container mt-4">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Date </th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr>
+                      <td>{{ searchEmailCards.fname }} {{ searchEmailCards.lname }}</td>
+                    <td>{{ searchEmailCards.email }}</td>
+                    <td>
+                      <span *ngFor="let phone of searchEmailCards.cardPhones.$values">{{ phone.phone }} 
+                          <br>
+                      </span>
+                    </td> 
+                    <td>{{ searchEmailCards.date | date: 'dd/MM/yyyy' }}</td>
+                    <td>
+                      <button class="btn btn-danger" (click)="delete(searchEmailCards.id)">Delete</button>
+                    </td>
+                  </tr>
+                  
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div *ngIf="tables">
+    <div class="tables">
+      <div class="container mt-4">
+        <h2>Business Cards</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Date </th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let card of businessCards">
+              <td>{{ card.fname }} {{ card.lname }}</td>
+              <td>{{ card.email }}</td>
+              <td>
+                <span *ngFor="let phone of card.cardPhones.$values">{{ phone.phone }} 
+                    <br>
+                </span>
+              </td> 
+              <td>{{ card.date | date: 'dd/MM/yyyy' }}</td>
+
+              <td>
+                <button  class="btn btn-danger" (click)="delete(card.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-primary" (click)="ExportCard()">Export Cards</button>
+        <button class="btn btn-success m-2" (click)="swith()">List Cards</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div *ngIf="card" class="d-flex flex-column align-items-center">
+    <button class="btn btn-primary m-3" (click)="swith()">List Tables</button>
+    <h2>Business Cards</h2>
+    <div class="row container">
+        <div class="col-6 mb-4" *ngFor="let card of businessCards">
+            <div class="card" style="border-radius: 15px; background-color: #f9f9f9; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); width: 100%; height: 350px;">
+                <div class="card-header text-center bg-gradient" style="border-radius: 15px 15px 0 0;">
+                    <h4 class="text-black">{{ card.fname }} {{ card.lname }}</h4>
+                </div>
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="me-3">
+                        <img *ngIf="card.photo" [src]="card.photo" alt="{{ card.fname }} {{ card.lname }}"
+                             class="img-thumbnail rounded-circle border border-3 border-primary"
+                             style="width: 100px; height: 100px;">
+                    </div>
+                    
+                    <div>
+                        <p class="card-text"><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> 
+                            <a href="mailto:{{ card.email }}" class="text-decoration-none">{{ card.email }}</a>
+                        </p>
+                        <h5>Phones:</h5>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let phone of card.cardPhones.$values">
+                                <a href="tel:{{ phone.phone }}" class="text-decoration-none">{{ phone.phone }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <small class="text-muted">
+                        <button class="btn btn-danger" (click)="delete(card.id)">Delete</button>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>

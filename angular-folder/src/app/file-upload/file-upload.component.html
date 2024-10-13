@@ -1,0 +1,69 @@
+<app-navbar></app-navbar>
+
+<div class="file-upload-container mt-3">
+    <h2>Upload Business Card File</h2>
+    
+    <label for="fileInput">
+        <i class="fa fa-upload"></i> Choose a file (CSV or XML):
+    </label>
+    <input 
+      id="fileInput" 
+      type="file" 
+      (change)="onFileChange($event)" 
+      accept=".csv, .xml" 
+      class="file-input" 
+    />
+    
+    <button 
+      (click)="upload()" 
+      [disabled]="!selectedFile" 
+      class="upload-button"
+    >
+      Upload
+    </button>
+  
+    <div *ngIf="fileContent" class="file-preview">
+      <h3>File Preview:</h3>
+      <pre>{{ fileContent }}</pre>
+    </div>
+    
+   
+
+  <div *ngIf="response" class="response-message mt-3">
+    <h3>Response:</h3>
+
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Phone 1</th>
+          <th>Phone 2</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let card of response.$values">
+          <td>{{ card.fname }}</td>
+          <td>{{ card.lname }}</td>
+          <td>{{ card.email }}</td>
+          <td>{{ card.gender }}</td>
+          <td>{{ card.phone }}</td>
+          <td>{{ card.phone2 ? card.phone2 : 'N/A' }}</td>
+          <td>
+            <button 
+              (click)="create(card)" 
+              class="btn btn-primary">
+              Add
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+   
+
+</div>
