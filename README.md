@@ -76,5 +76,5 @@ Please ensure that the column headers in the Excel files match those in `cardDTO
 To ensure everything works correctly, it is recommended to extract a file from the website and use it as a reference for matching.
 
 ## Excel File
-You can download the Excel file [here](link-to-your-excel-file).
+You can download the Excel file [here](https://github.com/karamomari/business-card/blob/main/business_cards%20(20).csv).
 
